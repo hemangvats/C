@@ -1,0 +1,286 @@
+# include<stdio.h>
+# include<malloc.h>
+# include<string.h>
+struct node
+{
+int roll;
+char name[30];
+struct node *next;
+}*start;
+int create_list(int data,const char *stn)
+{
+struct node *node, *new_node;
+new_node=(struct node*)malloc(sizeof(struct node));
+new_node ->roll=data;
+strcpy(new_node ->name,stn);
+new_node ->next=NULL;
+if(start==NULL)
+{
+start=new_node;
+}
+else
+{
+node=start;
+while(node -> next!=NULL)
+{
+node=node -> next;
+}
+node -> next=new_node;
+}
+}
+int Display()
+{
+struct node *node;
+if(start==NULL)
+{
+printf("List is Empty\n");
+return 0;
+}
+node=start;
+while(node!=NULL)
+{
+printf("%d\t%s\t\n",node -> roll, node->name);
+node= node -> next;
+}
+printf("\n");
+}
+int addatbeg(int data, const char *stn)
+{
+struct node *new_node;
+new_node=(struct node*)malloc(sizeof(struct node));
+new_node -> roll=data;
+strcpy(new_node ->name,stn);
+new_node -> next=start;
+start=new_node;
+}
+int addatend(int data,const char *stn)
+{
+struct node *node;
+node=start;
+struct node *new_node;
+new_node=(struct node*)malloc(sizeof(struct node));
+new_node -> roll=data;
+strcpy(new_node ->name,stn);
+new_node -> next=NULL;
+while(node->next!=NULL)
+{
+node= node -> next;
+}
+node -> next=new_node;
+}
+int addatspe(int data,const char *stn,int loc)
+{
+struct node *node;
+node=start;
+int cnt=0;
+while(cnt<loc-1)
+{
+ node=node->next;
+ cnt++;
+}
+struct node *new_node;
+new_node=(struct node*)malloc(sizeof(struct node));
+new_node -> roll=data;
+strcpy(new_node ->name,stn);
+new_node -> next= node->next;
+node -> next=new_node;
+}
+int delfrombeg()
+{
+struct node *node;
+node=start;
+if(node->next==NULL)
+{
+printf("Underflow\n");
+}
+else
+{
+start=node->next;
+}
+}
+int delfromend()
+{
+struct node *node;
+node=start;
+if(node->next==NULL)
+{
+printf("Underflow\n");
+}
+else
+{
+while(node->next->next!=NULL)
+{
+node=node->next;
+}
+node->next=NULL;
+}
+}
+int delfromspe(int loc)
+{
+int cnt=0;
+struct node *node;
+node=start;
+if(node->next==NULL)
+{
+printf("Underflow\n");
+}
+else
+{
+while(cnt<loc-1)
+{
+ node=node->next;
+ cnt++;
+}
+node->next=node->next->next;
+}
+}
+int Count(){
+struct node *node=start;
+int cnt=0;
+while (node!= NULL)
+{
+node=node -> next;
+cnt++;
+}
+printf("Number of elements are %d\n",cnt);
+}
+int rev()
+{
+struct node *P1,*P2,*P3;
+if(start -> next==NULL)
+return 0;
+P1=start;
+P2=P1->next;
+P3=P2->next;
+P1->next=NULL;
+P2->next=P1;
+while(P3!=NULL)
+{
+P1=P2;
+P2=P3;
+P3=P3->next;
+P2->next=P1;
+}
+start=P2;
+}
+int main()
+{
+int ch,n,m,pos,i,ch1;
+char stname[30];
+start=NULL;
+while(1)
+{
+printf("1. Create List\n");
+printf("2. Display\n");
+printf("3. Add Elements\n");
+printf("4. Delete Elements\n");
+printf("5. Count\n");
+printf("6. Reverse\n");
+printf("7. Exit\n");
+printf("Enter your choice:\n");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1:
+printf("\n");
+printf("Enter number of nodes\n");
+scanf("%d",&n);
+for(i=0;i<n;i++)
+{
+printf("Enter roll number:\n");
+scanf("%d",&m);
+printf("Enter name of the student:\n");
+scanf("%s",&stname);
+create_list(m,stname);
+}
+break;
+case 2:
+printf("\n");
+Display();
+break;
+case 3:
+printf("\n");
+printf("1. Add at Beginning\n");
+printf("2. Add at End\n");
+printf("3. Add at Specified location\n");
+scanf("%d",&ch1);
+switch(ch1)
+{
+case 1:
+printf("\n");
+printf("Enter roll number:\n");
+scanf("%d",&m);
+printf("Enter name of the student:\n");
+scanf("%s",&stname);
+addatbeg(m,stname);
+break;
+case 2:
+printf("\n");
+printf("Enter roll number:\n");
+scanf("%d",&m);
+printf("Enter name of the student:\n");
+scanf("%s",&stname);
+addatend(m,stname);
+break;
+case 3:
+printf("\n");
+printf("Enter roll number:\n");
+scanf("%d",&m);
+printf("Enter name of the student:\n");
+scanf("%s",&stname);
+printf("Enter the position of the element you want to insert\n");
+scanf("%d",&pos);
+addatspe(m,stname,(pos-1));
+break;
+default:
+printf("\n");
+printf("Wrong choice\n");
+}
+break;
+case 4:
+printf("\n");
+printf("1. Delete from Beginning\n");
+printf("2. Delete from End\n");
+printf("3. Delete From Specified location\n");
+scanf("%d",&ch1);
+switch(ch1)
+{
+case 1:
+printf("\n");
+delfrombeg();
+break;
+case 2:
+printf("\n");
+delfromend();
+break;
+case 3:
+printf("\n");
+printf("Enter the position of the element you want to delete\n");
+scanf("%d",&pos);
+delfromspe(pos-1);
+break;
+default:
+printf("\n");
+printf("Wrong choice\n");
+}
+break;
+case 5:
+printf("\n");
+Count();
+break;
+case 6:
+printf("\n");
+rev();
+break;
+case 7:
+printf("\n");
+printf("Thank You for using this application");
+printf("\nHemang Vats\n05713202723\nCSE-1");
+exit(1);
+default:
+printf("\n");
+printf("Wrong choice\n");
+}
+}
+}
+

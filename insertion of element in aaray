@@ -1,0 +1,53 @@
+#include<stdio.h>
+#include<conio.h>
+int main(){
+    int j=1;
+    int list[10];
+    int no,f;
+    printf("Enter the number of elements you want to insert in the array:");
+    scanf("%d",&no);
+    if (no>10)
+    {
+        printf("\nArray will be overloaded. Please enter less than 10 elements\n");
+    }
+    else{
+        for(f=0;f<no;f++)
+        {
+            printf("\nEnter the element you want to insert:");
+            scanf("%d",&list[f]);
+        }
+        while(j==1){
+            printf("\nThe array before inserting an element is:");
+            for(f=0;f<no;f++){
+                printf("\n%d",list[f]);
+            }
+            int pos;
+            int item;
+            printf("\nEnter the position you want to add the element:");
+            scanf("%d",&pos);
+            int m;
+            for(m=no-1;m>=pos-1;m--){
+                list[m+1]=list[m];
+            }
+            printf("\nEnter the value you want to enter at the position:");
+            scanf("%d",&item);
+            list[pos-1]=item;
+            no++;
+            printf("\nThe array after inserting an element is:");
+            for(f=0;f<no;f++){
+                printf("\n%d",list[f]);
+            }
+            printf("\nDo you want to continue?\n Enter 1 for yes and 0 for no");
+            scanf("%d",&j);
+            if (j==1){
+                continue;
+                }
+            else{
+                break;
+                }
+            }
+        }
+    printf("\nThank You for using this application");
+    printf("\nHemang Vats\n05713202723\nCSE-1");
+    return 0;
+    }

@@ -1,0 +1,136 @@
+# include<stdio.h>
+# include<malloc.h>
+# include<string.h>
+struct node
+{
+struct node *previous;
+int emp;
+char name[30];
+struct node *next;
+}*start;
+int create_list(int data,const char *stn)
+{
+struct node *node, *new_node;
+new_node=(struct node*)malloc(sizeof(struct node));
+new_node ->emp=data;
+strcpy(new_node ->name,stn);
+new_node ->previous=NULL;
+new_node ->next=NULL;
+if(start==NULL)
+{
+start=new_node;
+}
+else
+{
+node=start;
+while(node -> next!=NULL)
+{
+node->next->previous=node;
+node=node -> next;
+}
+new_node->previous=node;
+node -> next=new_node;
+}
+}
+int Display()
+{
+struct node *node;
+if(start==NULL)
+{
+printf("List is Empty\n");
+return 0;
+}
+node=start;
+while(node!=NULL)
+{
+printf("%d\t%s\t\n",node -> emp, node->name);
+node= node -> next;
+}
+printf("\n");
+}
+int addatbeg(int data, const char *stn)
+{
+struct node *node;
+struct node *new_node;
+new_node=(struct node*)malloc(sizeof(struct node));
+new_node -> emp=data;
+strcpy(new_node ->name,stn);
+new_node -> next=start;
+node-> previous=new_node;
+new_node->previous=NULL;
+start=new_node;
+}
+int delfromend()
+{
+struct node *node;
+node=start;
+if(node->next==NULL)
+{
+printf("Underflow\n");
+}
+else
+{
+while(node->next->next!=NULL)
+{
+node=node->next;
+}
+node->next=NULL;
+}
+}
+int main()
+{
+int ch,n,m,pos,i,ch1;
+char stname[30];
+start=NULL;
+while(1)
+{
+printf("1. Create List\n");
+printf("2. Display\n");
+printf("3. Add Elements in the beginning\n");
+printf("4. Delete Elements from the end\n");
+printf("5. Exit\n");
+printf("Enter your choice:\n");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1:
+printf("\n");
+printf("Enter number of nodes\n");
+scanf("%d",&n);
+for(i=0;i<n;i++)
+{
+printf("Enter employee number:\n");
+scanf("%d",&m);
+printf("Enter name of the employee:\n");
+scanf("%s",&stname);
+create_list(m,stname);
+}
+break;
+case 2:
+printf("\n");
+Display();
+break;
+case 3:
+printf("\n");
+printf("Enter employee number:\n");
+scanf("%d",&m);
+printf("Enter name of the employee:\n");
+scanf("%s",&stname);
+addatbeg(m,stname);
+break;
+case 4:
+printf("\n");
+delfromend();
+break;
+case 5:
+printf("\n");
+printf("Thank You for using this application");
+printf("\nHemang Vats\n05713202723\nCSE-1");
+exit(1);
+default:
+printf("\n");
+printf("Wrong choice\n");
+}
+}
+}
+

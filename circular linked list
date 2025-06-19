@@ -1,0 +1,142 @@
+# include<stdio.h>
+# include<malloc.h>
+# include<string.h>
+struct node
+{
+int col;
+char name[30];
+struct node *next;
+}*start;
+int create_list(int data,const char *stn)
+{
+struct node *node, *new_node;
+new_node=(struct node*)malloc(sizeof(struct node));
+new_node ->col=data;
+strcpy(new_node ->name,stn);
+new_node ->next=start;
+if(start==NULL)
+{
+start=new_node;
+new_node->next=start;
+}
+else
+{
+for(node=start;node!=NULL;node=node->next)
+{
+if(node->next==start)
+{
+node->next=new_node;
+new_node->next=start;
+break;
+}
+else
+{
+continue;
+}
+}
+}
+}
+int Display()
+{
+struct node *node;
+if(start==NULL)
+{
+printf("List is Empty\n");
+return 0;
+}
+node=start;
+do{
+printf("%d\t%s\t\n",node -> col, node->name);
+node= node -> next;
+}
+while(node!=start);
+printf("\n");
+}
+int addatend(int data,const char *stn)
+{
+struct node *node;
+struct node *new_node;
+new_node=(struct node*)malloc(sizeof(struct node));
+new_node -> col=data;
+strcpy(new_node ->name,stn);
+for(node=start;node!=NULL;node=node->next)
+{
+if(node->next==start)
+{
+node->next=new_node;
+new_node->next=start;
+break;
+}
+}
+}
+int delfrombeg()
+{
+struct node *node;
+node=start;
+if(node->next==NULL)
+{
+printf("Underflow\n");
+}
+else
+{
+free(start);
+start=node->next;
+}
+}
+int main()
+{
+int ch,n,m,pos,i,ch1;
+char stname[30];
+start=NULL;
+while(1)
+{
+printf("1. Create List\n");
+printf("2. Display\n");
+printf("3. Add at End\n");
+printf("4. Delete from Beginning\n");
+printf("5. Exit\n");
+printf("Enter your choice:\n");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1:
+printf("\n");
+printf("Enter number of nodes\n");
+scanf("%d",&n);
+for(i=0;i<n;i++)
+{
+printf("Enter college id:\n");
+scanf("%d",&m);
+printf("Enter name of the college:\n");
+scanf("%s",&stname);
+create_list(m,stname);
+}
+break;
+case 2:
+printf("\n");
+Display();
+break;
+case 3:
+printf("\n");
+printf("Enter college id:\n");
+scanf("%d",&m);
+printf("Enter name of the college:\n");
+scanf("%s",&stname);
+addatend(m,stname);
+break;
+case 4:
+printf("\n");
+delfrombeg();
+break;
+case 5:
+printf("\n");
+printf("Thank You for using this application");
+printf("\nHemang Vats\n05713202723\nCSE-1");
+exit(1);
+default:
+printf("\n");
+printf("Wrong choice\n");
+}
+}
+}
+
